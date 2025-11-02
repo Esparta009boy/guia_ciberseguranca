@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Carreira em Cibersegurança</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Harmony" - A mix of warm neutrals with a professional blue accent. -->
+    <!-- Application Structure Plan: The SPA is structured into thematic, scrollable sections for intuitive, non-linear exploration. A top navigation bar allows quick jumps. The core is the "Explorador de Carreiras," a tab-based interactive module where users select a specialization to dynamically update detailed information (description, salary chart, study path). This dashboard-like approach was chosen over a linear e-book format to empower users to directly compare roles and access specific information quickly, which is more aligned with how technical audiences consume data. Subsequent sections provide context with market projections and actionable starting points, creating a comprehensive yet easily digestible guide. -->
+    <!-- Visualization & Content Choices: 
+        1. Market Importance -> Goal: Inform -> Presentation: Key statistic cards -> Interaction: None -> Justification: Provides a high-impact, scannable overview of the field's relevance -> Method: HTML/Tailwind.
+        2. Salary Data -> Goal: Compare -> Viz: Bar Chart -> Interaction: Dynamically updates when a user selects a career tab -> Justification: Offers a clear, visual comparison between national and international salary ranges, a key decision factor for professionals -> Library: Chart.js.
+        3. Market Growth -> Goal: Show Change -> Viz: Line Chart -> Interaction: Hover tooltips for year-specific data -> Justification: Effectively illustrates the long-term growth trend and future demand for cybersecurity professionals -> Library: Chart.js.
+        4. Career Details -> Goal: Organize/Inform -> Presentation: Tabbed content area -> Interaction: Click tabs to reveal detailed text -> Justification: Prevents information overload by segmenting complex details into user-selectable chunks, improving readability and engagement -> Method: Vanilla JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4;
+            color: #3f3f46;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        .career-button {
+            transition: all 0.3s;
+        }
+        .career-button.active {
+            background-color: #3b82f6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Guia de Cibersegurança</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link text-gray-600 font-medium">Panorama</a>
+                <a href="#explorer" class="nav-link text-gray-600 font-medium">Carreiras</a>
+                <a href="#growth" class="nav-link text-gray-600 font-medium">Projeções</a>
+                <a href="#start" class="nav-link text-gray-600 font-medium">Como Começar</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="overview" class="text-center mb-20">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">O Panorama da Segurança Cibernética</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">
+                Em um mundo cada vez mais digital, a segurança cibernética deixou de ser uma opção para se tornar uma necessidade fundamental. Este guia é seu ponto de partida para entender as oportunidades, os desafios e os caminhos para se tornar um profissional essencial na proteção do nosso futuro digital.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="text-3xl font-bold text-blue-500 mb-2">3.5 Milhões</h3>
+                    <p class="text-gray-500">de vagas não preenchidas em cibersegurança globalmente.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="text-3xl font-bold text-blue-500 mb-2">15% ao ano</h3>
+                    <p class="text-gray-500">É a projeção de crescimento do mercado até 2027.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="text-3xl font-bold text-blue-500 mb-2">+ de R$20.000</h3>
+                    <p class="text-gray-500">Salário para cargos sênior no mercado nacional.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="explorer" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Explorador de Carreiras</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                    A cibersegurança é um campo vasto com diversas especializações. Cada uma desempenha um papel único na defesa de sistemas e dados. Clique em uma área para explorar os detalhes, salários e o que é preciso para se destacar.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div id="career-nav" class="flex md:flex-col gap-4 overflow-x-auto pb-4 md:pb-0 md:border-r md:pr-6">
+                    </div>
+                    
+                    <div class="flex-1 min-w-0">
+                        <h3 id="career-title" class="text-3xl font-bold text-gray-800 mb-3"></h3>
+                        <p id="career-description" class="text-gray-600 mb-6"></p>
+                        
+                        <h4 class="text-xl font-semibold text-gray-700 mb-4">Atuação Profissional</h4>
+                        <p id="career-duties" class="text-gray-600 mb-8"></p>
+
+                        <div class="mb-8">
+                            <h4 class="text-xl font-semibold text-gray-700 mb-4 text-center">Média Salarial (CLT - Mensal)</h4>
+                            <div class="chart-container">
+                                <canvas id="salaryChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-700 mb-4">Trilha de Estudos e Certificações</h4>
+                            <p id="career-path" class="text-gray-600"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Projeções de Crescimento do Mercado</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                    A demanda por profissionais de cibersegurança está em ascensão contínua. A digitalização acelerada, a sofisticação das ameaças e a regulamentação de dados são os principais motores desse crescimento. O gráfico abaixo ilustra a projeção de crescimento de vagas no setor para os próximos anos.
+                </p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                <h4 class="text-xl font-semibold text-gray-700 mb-4 text-center">Evolução do Número de Vagas em Cibersegurança (Milhões)</h4>
+                 <div class="chart-container" style="height: 400px; max-height: 450px;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="start">
+             <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Por Onde Começar?</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                    Iniciar uma carreira em cibersegurança exige uma base sólida de conhecimento teórico e prático. O caminho combina educação formal com certificações reconhecidas pelo mercado, que validam suas habilidades técnicas.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Foco na Graduação</h3>
+                    <p class="text-gray-600 mb-4">Durante a faculdade, concentre-se em disciplinas que formam a base do conhecimento em tecnologia e segurança:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong>Redes de Computadores:</strong> Entender protocolos (TCP/IP, DNS, HTTP) é fundamental.</li>
+                        <li><strong>Sistemas Operacionais:</strong> Domine Linux e Windows, pois são os alvos mais comuns.</li>
+                        <li><strong>Algoritmos e Estrutura de Dados:</strong> Essencial para entender criptografia e análise de malware.</li>
+                        <li><strong>Programação e Scripting:</strong> Python, Bash e PowerShell são cruciais para automação e análise.</li>
+                        <li><strong>Fundamentos de Segurança:</strong> Estude os pilares de Confidencialidade, Integridade e Disponibilidade.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Certificações Essenciais</h3>
+                    <p class="text-gray-600 mb-4">As certificações validam seu conhecimento e são muito valorizadas pelos empregadores. Comece pelas de nível de entrada e avance para as especializadas:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong>CompTIA Security+:</strong> A melhor certificação de entrada, cobre todos os fundamentos.</li>
+                        <li><strong>Certified Ethical Hacker (CEH):</strong> Focada em ferramentas e técnicas de hacking ético.</li>
+                        <li><strong>OSCP (Offensive Security Certified Professional):</strong> Altamente prática e respeitada, focada em pentest.</li>
+                        <li><strong>CISSP (Certified Information Systems Security Professional):</strong> Padrão ouro para gestão de segurança, exige experiência.</li>
+                        <li><strong>Certificações de Nuvem (AWS, Azure):</strong> A segurança em nuvem é uma área em alta demanda.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-20 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Guia de Carreira em Cibersegurança. Um recurso para a próxima geração de defensores digitais.</p>
+        </div>
+    </footer>
+
+    <script>
+        const careerData = {
+            "Red Team": {
+                title: "Red Team: O Ataque Simulado",
+                description: "Especialistas de Red Team simulam ataques cibernéticos realistas para testar as defesas de uma organização. Eles pensam como hackers para encontrar e explorar vulnerabilidades antes que os adversários reais o façam.",
+                duties: "Realizar testes de invasão (pentest) em redes, aplicações web e sistemas. Utilizar técnicas de engenharia social, desenvolver exploits e analisar a capacidade de detecção e resposta da equipe de defesa (Blue Team). O objetivo é fornecer um relatório detalhado com as falhas encontradas e recomendações de melhoria.",
+                path: "Fundamental ter conhecimento avançado em redes, sistemas operacionais e técnicas de hacking. Certificações como OSCP, GPEN e GWAPT são altamente recomendadas para validar as habilidades práticas.",
+                salary: {
+                    br: [8000, 15000, 22000],
+                    intl: [18000, 30000, 45000]
+                }
+            },
+            "Blue Team": {
+                title: "Blue Team: A Linha de Defesa",
+                description: "O Blue Team é responsável por defender a infraestrutura de uma organização contra ameaças cibernéticas. Eles implementam, mantêm e monitoram os controles de segurança para prevenir, detectar e responder a incidentes.",
+                duties: "Configurar e gerenciar firewalls, SIEM (Security Information and Event Management), antivírus e outras ferramentas de segurança. Monitorar logs e alertas em busca de atividades suspeitas, realizar análise de vulnerabilidades e responder a incidentes de segurança, contendo a ameaça e recuperando os sistemas.",
+                path: "Conhecimento sólido em administração de sistemas, redes e ferramentas de segurança é crucial. Certificações como CompTIA Security+, CySA+ e as específicas de fornecedores (como as de SIEM) são valiosas.",
+                salary: {
+                    br: [6000, 11000, 18000],
+                    intl: [15000, 25000, 38000]
+                }
+            },
+            "DFIR": {
+                title: "DFIR: O Detetive Digital",
+                description: "DFIR (Digital Forensics and Incident Response) é a área que investiga incidentes de segurança após ocorrerem. Eles coletam e analisam evidências digitais para entender o que aconteceu, como aconteceu e como evitar que se repita.",
+                duties: "Em uma resposta a incidente, a equipe de DFIR trabalha para conter o dano, erradicar a ameaça e recuperar as operações. Na parte de forense, eles realizam a coleta de dados de discos e memória, analisam artefatos digitais para reconstruir a linha do tempo do ataque e preparam relatórios que podem ser usados em processos legais.",
+                path: "Exige uma mente analítica e metódica. Conhecimento profundo de sistemas de arquivos, processos de sistema operacional e ferramentas de forense (ex: EnCase, FTK). Certificações como GCFE, GCFA e CHFI são padrão na indústria.",
+                salary: {
+                    br: [7000, 14000, 21000],
+                    intl: [17000, 28000, 42000]
+                }
+            },
+            "Segurança da Informação": {
+                title: "Segurança da Informação: A Gestão de Riscos",
+                description: "Profissionais de Segurança da Informação (InfoSec) focam nos aspectos estratégicos e de governança. Eles criam políticas, gerenciam riscos e garantem que a empresa esteja em conformidade com leis e regulamentações (como LGPD e GDPR).",
+                duties: "Desenvolver e implementar políticas de segurança, realizar avaliações de risco, gerenciar programas de conscientização para funcionários, auditar controles de segurança e garantir a conformidade regulatória. Eles traduzem os riscos técnicos para a linguagem de negócios.",
+                path: "Requer uma combinação de conhecimento técnico e habilidades de gestão. Certificações como CISSP, CISM e CRISC são as mais reconhecidas e valorizadas para profissionais que buscam cargos de liderança em InfoSec.",
+                salary: {
+                    br: [9000, 16000, 25000],
+                    intl: [20000, 35000, 50000]
+                }
+            }
+        };
+
+        let salaryChart, growthChart;
+
+        const updateCareerContent = (careerKey) => {
+            const data = careerData[careerKey];
+            if (!data) return;
+
+            document.getElementById('career-title').textContent = data.title;
+            document.getElementById('career-description').textContent = data.description;
+            document.getElementById('career-duties').textContent = data.duties;
+            document.getElementById('career-path').textContent = data.path;
+
+            salaryChart.data.datasets[0].data = data.salary.br;
+            salaryChart.data.datasets[1].data = data.salary.intl;
+            salaryChart.update();
+            
+            document.querySelectorAll('.career-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.career === careerKey) {
+                    btn.classList.add('active');
+                }
+            });
+        };
+        
+        const createSalaryChart = () => {
+            const ctx = document.getElementById('salaryChart').getContext('2d');
+            salaryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Júnior', 'Pleno', 'Sênior'],
+                    datasets: [{
+                        label: 'Brasil (BRL)',
+                        data: [],
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Internacional (BRL - Equivalente)',
+                        data: [],
+                        backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'R$ ' + (value / 1000) + 'k';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        const createGrowthChart = () => {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            growthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2023', '2024', '2025', '2026', '2027', '2028'],
+                    datasets: [{
+                        label: 'Vagas Globais em Milhões',
+                        data: [3.4, 3.5, 3.7, 4.0, 4.3, 4.7],
+                        fill: true,
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+        
+        const setupCareerNav = () => {
+            const navContainer = document.getElementById('career-nav');
+            Object.keys(careerData).forEach(key => {
+                const button = document.createElement('button');
+                button.textContent = key;
+                button.dataset.career = key;
+                button.className = 'career-button w-full md:w-40 text-left px-4 py-3 rounded-lg font-semibold text-gray-600 bg-gray-100 hover:bg-blue-500 hover:text-white focus:outline-none';
+                button.addEventListener('click', () => updateCareerContent(key));
+                navContainer.appendChild(button);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupCareerNav();
+            createSalaryChart();
+            createGrowthChart();
+            
+            const firstCareer = Object.keys(careerData)[0];
+            updateCareerContent(firstCareer);
+        });
+    </script>
+</body>
+</html>
