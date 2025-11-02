@@ -1,7 +1,7 @@
 # guia_ciberseguranca
 Guia interativo de carreiras em cibersegurança
 
-![Capa do Projeto]https://blog.woba.com.br/wp-content/uploads/2022/04/cyber-security-1024x683.jpeg()
+![Capa do Projeto](https://blog.woba.com.br/wp-content/uploads/2022/04/cyber-security-1024x683.jpeg)
 
 # 🛡️ Guia de Carreiras em Cibersegurança
 
