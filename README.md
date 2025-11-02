@@ -1,7 +1,7 @@
 # guia_ciberseguranca
 Guia interativo de carreiras em cibersegurança
 
-![Capa do Projeto](hhttps://www.sp.senac.br/documents/51838645/51838647/analista-de-seguranca-cibernetica.webp/051aa0a1-2c63-df9a-f336-cef12d6b2b4c?version=1.0&t=1756151014392)
+![Capa do Projeto]https://blog.woba.com.br/wp-content/uploads/2022/04/cyber-security-1024x683.jpeg()
 
 # 🛡️ Guia de Carreiras em Cibersegurança
 
