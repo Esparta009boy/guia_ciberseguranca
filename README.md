@@ -38,7 +38,7 @@ Material interativo em **formato HTML** com projeções de crescimento, áreas p
 - Navegação simples e responsiva  
 - Conteúdo atualizado com **tendências globais**  
 - Sugestões de certificações e áreas de especialização  
-- Links úteis para cursos e comunidades  
+   
 
 ---
 
