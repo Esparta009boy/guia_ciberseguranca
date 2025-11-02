@@ -1,7 +1,7 @@
 # guia_ciberseguranca
 Guia interativo de carreiras em cibersegurança
 
-![Capa do Projeto](https://www.sp.senac.br/documents/51838645/51838647/analista-de-seguranca-cibernetica.webp/051aa0a1-2c63-df9a-f336-cef12d6b2b4c?version=1.0&t=1756151014392)
+![Capa do Projeto](hhttps://www.sp.senac.br/documents/51838645/51838647/analista-de-seguranca-cibernetica.webp/051aa0a1-2c63-df9a-f336-cef12d6b2b4c?version=1.0&t=1756151014392)
 
 # 🛡️ Guia de Carreiras em Cibersegurança
 
@@ -11,7 +11,7 @@ Material interativo em **formato HTML** com projeções de crescimento, áreas p
 
 ## 🌐 Acesse o Guia
 
-📎 [Clique aqui para visualizar o guia online](https://Esparta009boy.github.io/guia-ciberseguranca/)
+📎 [Clique aqui para visualizar o guia online](https://esparta009boy.github.io/guia_ciberseguranca/)
 
 ---
 
